@@ -1,0 +1,40 @@
+.glow-box {
+  position: relative;
+  text-align: center;
+  background: #07080b;
+  font-size: medium;
+  margin-bottom: 2rem;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.glow-box::after,
+.glow-box::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background-image: conic-gradient(from var(--angle), transparent 70%, white);
+  border-radius: 20px;
+  z-index: -1;
+  animation: 3s spin linear infinite;
+}
+
+.glow-box::before {
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
