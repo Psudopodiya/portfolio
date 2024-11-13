@@ -41,9 +41,10 @@ export default function Portfolio() {
     },
   ];
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.target);
+    const form = event.currentTarget;
+    const data = new FormData(form);
 
     const payload = {
       name: data.get("name"),
