@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -12,22 +12,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Configure Nodemailer Transporter
+    // Configure Nodemailer transport
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: "gmail", // Use your email provider
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.EMAIL_USER, // Your email address
+        pass: process.env.EMAIL_PASS, // Your email password or app-specific password
       },
     });
 
+    // Define email options
     const mailOptions = {
-      from: email,
-      to: process.env.EMAIL_RECEIVER,
+      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`, // Sender
+      to: process.env.EMAIL_RECEIVER, // Your personal email
       subject: `New Contact Message from ${name}`,
-      text: message,
+      text: `You have a new message:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
     };
 
+    // Send the email
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({ success: "Email sent successfully!" });
