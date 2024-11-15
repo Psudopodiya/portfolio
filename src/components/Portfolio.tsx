@@ -220,15 +220,18 @@ export default function Portfolio() {
               >
                 <Input
                   type="text"
+                  name="name"
                   placeholder="Your Name"
                   className="bg-black/50 border border-white/10 rounded-xl placeholder-gray-400 px-4 py-3"
                 />
                 <Input
                   type="email"
+                  name="email"
                   placeholder="Your Email"
                   className="bg-black/50 border border-white/10 rounded-xl placeholder-gray-400 px-4 py-3"
                 />
                 <Textarea
+                  name="message"
                   placeholder="Your Message"
                   className="bg-black/50 border border-white/10 rounded-xl placeholder-gray-400 px-4 py-3 min-h-[150px]"
                 />
