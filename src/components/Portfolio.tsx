@@ -44,13 +44,27 @@ export default function Portfolio() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
 
+    // Validate form data
     const payload = {
-      name: data.get("name"),
-      email: data.get("email"),
-      message: data.get("message"),
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
     };
+
+    // Basic validation
+    if (!payload.name || !payload.email || !payload.message) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(payload.email as string)) {
+      alert("Please enter a valid email address");
+      return;
+    }
 
     try {
       const response = await fetch("/api/sendEmail", {
@@ -61,12 +75,17 @@ export default function Portfolio() {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error("Failed to send email");
+      const data = await response.json();
 
-      alert("Email sent successfully!");
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send email");
+      }
+
+      alert("Message sent successfully!");
+      form.reset(); // Reset the form after successful submission
     } catch (error) {
       console.error("Error:", error);
-      alert("Error sending email. Please try again.");
+      alert("Failed to send message. Please try again later.");
     }
   };
 

@@ -1,6 +1,18 @@
+// api/sendEmail.js
 import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
+  // Add CORS headers
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle preflight request
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -12,29 +24,44 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Configure Nodemailer transport
     const transporter = nodemailer.createTransport({
-      service: "gmail", // Use your email provider
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // Use SSL
       auth: {
-        user: process.env.EMAIL_USER, // Your email address
-        pass: process.env.EMAIL_PASS, // Your email password or app-specific password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
-    // Define email options
+    // Verify connection
+    await transporter.verify();
+
     const mailOptions = {
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`, // Sender
-      to: process.env.EMAIL_RECEIVER, // Your personal email
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_RECEIVER,
       subject: `New Contact Message from ${name}`,
-      text: `You have a new message:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message.replace(/\n/g, "<br>")}</p>
+        </div>
+      `,
     };
 
-    // Send the email
     await transporter.sendMail(mailOptions);
-
-    res.status(200).json({ success: "Email sent successfully!" });
+    return res
+      .status(200)
+      .json({ success: true, message: "Email sent successfully!" });
   } catch (error) {
     console.error("Error sending email:", error);
-    res.status(500).json({ error: "Failed to send email." });
+    return res.status(500).json({
+      error: "Failed to send email",
+      details:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
+    });
   }
 }
