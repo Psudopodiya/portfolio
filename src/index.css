@@ -2,10 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background-color: #ffffff; /* Light theme background */
+}
+
+/* Dark theme variables */
+.dark-theme {
+  --background-color: #07080b; /* Dark theme background */
+}
+
 body {
-  background-color: #000; /* Black background */
+  background-color: var(--background-color); /* Black background */
   margin: 0;
   padding: 0;
   height: 100%; /* Full viewport height */
-  color: white;
 }
