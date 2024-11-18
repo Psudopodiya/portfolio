@@ -1,11 +1,13 @@
 import { Mail, Phone, Send } from "lucide-react";
 import { Button, Textarea, Input } from "@/components/ui";
+import { useToast } from "@/hooks/use-toast";
 
 type ContactSectionProps = {
   isDarkTheme: boolean;
 };
 
 function ContactSection({ isDarkTheme }: ContactSectionProps) {
+  const { toast } = useToast();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -20,14 +22,22 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
 
     // Basic validation
     if (!payload.name || !payload.email || !payload.message) {
-      alert("Please fill in all fields");
+      toast({
+        title: "Incomplete Form",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
       return;
     }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(payload.email as string)) {
-      alert("Please enter a valid email address");
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -46,11 +56,20 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
         throw new Error(data.error || "Failed to send email");
       }
 
-      alert("Message sent successfully!");
+      toast({
+        title: "Message Sent",
+        description: "Your message was sent successfully!",
+        variant: "success",
+      });
+
       form.reset(); // Reset the form after successful submission
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to send message. Please try again later.");
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
     }
   };
   return (
