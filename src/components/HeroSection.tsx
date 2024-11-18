@@ -1,6 +1,7 @@
-import { GithubIcon, Mail } from "lucide-react";
+import { GithubIcon, Mail, Download } from "lucide-react";
 import { SiLeetcode } from "react-icons/si";
 import { CiLinkedin } from "react-icons/ci";
+import "./Portfolio.css";
 
 interface HeroSectionProps {
   isDarkTheme: boolean;
@@ -55,6 +56,15 @@ const HeroSection = ({ isDarkTheme }: HeroSectionProps) => (
         <Mail />
       </a>
     </div>
+    <button
+      onClick={() => window.open("/resume.pdf", "_blank")}
+      className={`rounded glow-box inline-flex items-center gap-2 bg-transparent hover:shadow-md hover:shadow-orange-400 transition duration-300 ease-in-out py-2 px-4 ${
+        isDarkTheme ? "text-white" : "text-black"
+      }`}
+    >
+      <Download className="w-4 h-4" />
+      Download Resume
+    </button>
   </section>
 );
 
