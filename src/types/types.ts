@@ -10,4 +10,5 @@ export interface Project {
   tech: string[];
   info: string;
   link: string;
+  repository_link: string;
 }
