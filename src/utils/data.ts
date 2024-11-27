@@ -4,17 +4,17 @@ export const skills: Skill[] = [
   {
     title: "Frontend",
     tech: ["JavaScript", "TypeScript", "React.js", "Tailwind", "CSS"],
-    data: "I love working with creative designs to bring out the best dynamic interfaces from scratch",
+    data: "I build dynamic, responsive UIs using JavaScript and TypeScript, with React for reusable components and Tailwind for fast, modern designs. Focused on seamless user experiences and performance.",
   },
   {
     title: "Backend",
     tech: ["Python", "Django", "Flask", "SQL", "NoSQL"],
-    data: "I love working with creative designs to bring out the best dynamic interfaces from scratch",
+    data: "I develop scalable server-side apps with Python, using Django and Flask for secure APIs. Experienced with both SQL and NoSQL databases to design efficient data models.",
   },
   {
     title: "DevOps",
     tech: ["AWS", "Docker", "Terraform", "Jenkins", "Git"],
-    data: "I love working with creative designs to bring out the best dynamic interfaces from scratch",
+    data: "I automate cloud infrastructure with AWS and Terraform, containerize apps with Docker, and set up CI/CD pipelines with Jenkins. Proficient in Git for version control and collaboration.",
   },
 ];
 
