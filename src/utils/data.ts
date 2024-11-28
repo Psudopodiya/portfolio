@@ -37,7 +37,15 @@ export const projects: Project[] = [
 
   {
     name: "Retro Chat",
-    tech: ["React", "Tailwind", "JavaScript", "3js", "react-three"],
+    tech: [
+      "React",
+      "Tailwind",
+      "JavaScript",
+      "3js",
+      "react-three",
+      "Zustand",
+      "TypeScript",
+    ],
     info: "This project is a demonstration for the 3js website that functions and can be used as a landing page for other websites, serving as an interactive way for users to use them an guide around ",
     link: "https://landing-page-gamma-liard-58.vercel.app/",
     repository_link: "https://github.com/Psudopodiya/3js-COE",

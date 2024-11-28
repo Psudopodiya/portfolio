@@ -28,7 +28,7 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
               isDarkTheme ? "text-white" : "text-black"
             } cursor-pointer w-full max-w-sm`}
           >
-            <CardContent className="p-6 flex flex-col items-center gap-5">
+            <CardContent className="p-6 flex flex-col items-center gap-2 justify-around h-full">
               <h3 className="text-xl md:text-3xl font-semibold mb-2">
                 {project.name}
               </h3>
