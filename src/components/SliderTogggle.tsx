@@ -20,8 +20,8 @@ const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
           setSelected("light");
         }}
       >
-        <FiSun className="relative z-10 text-lg md:text-sm" />
-        <span className="relative z-10">Light</span>
+        <FiSun className="relative z-10 text-lg md:text-sm text-white" />
+        <span className="relative z-10 text-white">Light</span>
       </button>
       <button
         className={`${TOGGLE_CLASSES} text-black`}
@@ -42,7 +42,7 @@ const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
           transition={{ type: "spring", damping: 15, stiffness: 250 }}
           className={`h-full w-1/2 rounded-full bg-gradient-to-r ${
             selected
-              ? "from-gray-200 to-orange-300"
+              ? "from-gray-600 to-orange-800"
               : "from-white to-orange-300"
           }`}
         />

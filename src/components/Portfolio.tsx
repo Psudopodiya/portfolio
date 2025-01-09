@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import SkillsSection from "./SkillsSection";
 import ProjectsSecton from "./ProjectsSection";
 import ContactSection from "./ContactSection";
+import Background3d from "./Background3d";
 
 import "./Portfolio.css";
 
@@ -30,34 +31,14 @@ export default function Portfolio() {
         isDarkTheme ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
-      {/* Grid Background */}
-      <div
-        className="absolute inset-0 z-0 grid-background"
-        style={{
-          backgroundImage: `linear-gradient(${
-            isDarkTheme ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)"
-          } 1px, transparent 1px),
-                           linear-gradient(90deg, ${
-                             isDarkTheme
-                               ? "rgba(255, 255, 255, 0.05)"
-                               : "rgba(0, 0, 0, 0.05)"
-                           } 1px, transparent 1px),
-                           radial-gradient(circle at 50% 50%, ${
-                             isDarkTheme
-                               ? "rgba(255, 85, 0, 0.3)"
-                               : "rgba(255, 85, 0, 0.1)"
-                           }, transparent 70%)`,
-          backgroundSize: "50px 50px, 50px 50px, cover",
-          backgroundBlendMode: "overlay",
-        }}
-      />
+      <Background3d isDarkTheme={isDarkTheme} />
 
       {/* Content */}
       <div
         className={`relative z-10 ${
           isDarkTheme
             ? "bg-gradient-to-b from-black via-orange-900/40 to-black"
-            : "bg-gradient-to-b from-white via-orange-100/40 to-white"
+            : "bg-gradient-to-b from-white via-orange-200/90 to-white"
         }`}
       >
         <Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
