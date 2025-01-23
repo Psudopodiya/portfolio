@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import SkillsSection from "./SkillsSection";
 import ProjectsSecton from "./ProjectsSection";
 import ContactSection from "./ContactSection";
-import Background3d from "./Background3d";
 
 import "./Portfolio.css";
 
@@ -31,8 +30,6 @@ export default function Portfolio() {
         isDarkTheme ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
-      <Background3d isDarkTheme={isDarkTheme} />
-
       {/* Content */}
       <div
         className={`relative z-10 ${
