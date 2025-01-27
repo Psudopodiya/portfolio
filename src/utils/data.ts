@@ -46,7 +46,7 @@ export const projects: Project[] = [
       "Zustand",
       "TypeScript",
     ],
-    info: "This project is a demonstration for a 3Js website that functions, and can be used as a landing page for other websites, serving as an interactive way for users to use them an guide around. Furthere more this has been used in internal Projects like ",
+    info: "This project is a demonstration for a 3Js website that functions, and can be used as a landing page for other websites, serving as an interactive way for users to use them an guide around. Furthermore can be used to create interactive guides and walkthrough for learning websites ",
     link: "https://landing-page-gamma-liard-58.vercel.app/",
     repository_link: "https://github.com/Psudopodiya/3js-COE",
   },

@@ -1,12 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import { projects } from "@/utils/data";
-import { Card, CardContent } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, GithubIcon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProjectsSectionProps {
   isDarkTheme: boolean;
 }
 
 function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section
       id="projects"
@@ -27,18 +33,32 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
             } border shadow-lg transition-all hover:shadow-orange-500/20 hover:scale-105 duration-300 ${
               isDarkTheme ? "text-white" : "text-black"
             } cursor-pointer w-full max-w-sm`}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
-            <CardContent className="p-6 flex flex-col items-center gap-2 justify-around h-full">
-              <h3 className="text-xl md:text-3xl font-semibold mb-2">
+            <CardContent className="p-6 flex flex-col items-center gap-5 justify-around h-full">
+              <h3 className="text-2xl md:text-4xl font-semibold mb-2">
                 {project.name}
               </h3>
-              <div className={isDarkTheme ? "text-gray-400" : "text-gray-600"}>
-                {project.info}
-              </div>
+              <AnimatePresence>
+                <motion.div
+                  key={`project-info-${index}`}
+                  initial={{ height: 100, opacity: 0.6 }}
+                  animate={{
+                    height: hoveredIndex === index ? "auto" : 100,
+                    opacity: hoveredIndex === index ? 1 : 0.6,
+                  }}
+                  exit={{ height: 100, opacity: 0.6 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden relative"
+                >
+                  <p>{project.info}</p>
+                </motion.div>
+              </AnimatePresence>
               <div className="flex flex-wrap justify-center gap-3">
-                {project.tech.map((t, index) => (
+                {project.tech.map((t, techIndex) => (
                   <div
-                    key={index}
+                    key={techIndex}
                     className={`rounded-xl border ${
                       isDarkTheme ? "border-gray-600" : "border-gray-400"
                     } px-2 py-1`}
@@ -51,23 +71,27 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
               <div
                 className={`${
                   isDarkTheme ? "text-gray-400" : "text-gray-600"
-                } inline-flex flex-wrap items-center gap-5 justify-center`}
+                } inline-flex flex-wrap items-center gap-5 justify-center mt-4`}
               >
                 <a
                   href={project.repository_link}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className={`hover:text-orange-500 ${
                     isDarkTheme ? "text-white" : "text-black"
-                  }`}
+                  } transition-colors`}
                 >
-                  <GithubIcon />
+                  <GithubIcon size={24} />
                 </a>
                 <a
                   href={project.link}
                   target="_blank"
-                  className="hover:text-orange-500 transition-colors"
+                  rel="noopener noreferrer"
+                  className={`hover:text-orange-500 ${
+                    isDarkTheme ? "text-white" : "text-black"
+                  } transition-colors`}
                 >
-                  <ExternalLink size={30} />
+                  <ExternalLink size={24} />
                 </a>
               </div>
             </CardContent>

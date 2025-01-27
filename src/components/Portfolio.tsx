@@ -27,15 +27,17 @@ export default function Portfolio() {
   return (
     <div
       className={`relative min-h-screen ${
-        isDarkTheme ? "bg-black text-white" : "bg-white text-black"
+        isDarkTheme
+          ? "bg-[#1a1a1a] text-[#e0e0e0]"
+          : "bg-[#f8f9fa] text-[#333333]"
       }`}
     >
       {/* Content */}
       <div
         className={`relative z-10 ${
           isDarkTheme
-            ? "bg-gradient-to-b from-black via-orange-900/40 to-black"
-            : "bg-gradient-to-b from-white via-orange-200/90 to-white"
+            ? "bg-gradient-to-b from-[#000000] via-[#784626] to-[#000000]"
+            : "bg-gradient-to-b from-[#f8f9fa] via-[#ffcc80] to-[#fff3e6]"
         }`}
       >
         <Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
