@@ -4,7 +4,7 @@ export const skills: Skill[] = [
   {
     title: "Frontend",
     tech: ["JavaScript", "TypeScript", "React.js", "Tailwind", "CSS"],
-    data: "I build dynamic, responsive UIs using JavaScript and TypeScript, with React for reusable components and Tailwind for fast, modern designs. Focused on seamless user experiences and performance.",
+    data: "I build dynamic, responsive UI's using JS and TS, with React for reusable components and Tailwind for fast, modern designs. Focused on seamless user experiences and performance.",
   },
   {
     title: "Backend",

@@ -1,11 +1,40 @@
-import { GithubIcon, Mail, Download } from "lucide-react";
-import { SiLeetcode } from "react-icons/si";
-import { CiLinkedin } from "react-icons/ci";
-import "./Portfolio.css";
+import { Download } from 'lucide-react';
+import { FiGithub } from 'react-icons/fi';
+import { MdOutlineEmail } from 'react-icons/md';
+import { SiLeetcode } from 'react-icons/si';
+import { CiLinkedin } from 'react-icons/ci';
+import './Portfolio.css';
 
 interface HeroSectionProps {
   isDarkTheme: boolean;
 }
+
+const links = [
+  {
+    href: 'https://github.com/Psudopodiya',
+    icon: <FiGithub size={28} />,
+    label: 'Github',
+    bgColor: 'bg-gray-300',
+  },
+  {
+    href: 'https://www.linkedin.com/in/chinmay-raiker/',
+    icon: <CiLinkedin size={28} />,
+    label: 'LinkedIn',
+    bgColor: 'bg-blue-500',
+  },
+  {
+    href: 'https://leetcode.com',
+    icon: <SiLeetcode size={28} />,
+    label: 'LeetCode',
+    bgColor: 'bg-yellow-500',
+  },
+  {
+    href: 'mailto:XXXXXXXXXXXXXXXXXXXXXXXX',
+    icon: <MdOutlineEmail size={28} />,
+    label: 'Email',
+    bgColor: 'bg-red-500',
+  },
+];
 
 const HeroSection = ({ isDarkTheme }: HeroSectionProps) => (
   <section
@@ -17,49 +46,38 @@ const HeroSection = ({ isDarkTheme }: HeroSectionProps) => (
     </h1>
     <p
       className={`text-lg sm:text-xl ${
-        isDarkTheme ? "text-gray-400" : "text-gray-600"
+        isDarkTheme ? 'text-gray-400' : 'text-gray-600'
       } max-w-2xl mx-auto`}
     >
       A Software Engineer, trying to transform elegant and productive ideas into
       Digital Solutions
     </p>
 
-    <div className="inline-flex flex-wrap items-center gap-5 justify-center">
-      <a
-        href="https://github.com/Psudopodiya"
-        target="_blank"
-        className={`hover:text-orange-500 ${
-          isDarkTheme ? "text-white" : "text-black"
-        }`}
-      >
-        <GithubIcon />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/chinmay-raiker/"
-        target="_blank"
-        className="hover:text-orange-500 transition-colors"
-      >
-        <CiLinkedin size={30} />
-      </a>
-      <a
-        href="https://leetcode.com/u/Psudopodiya/"
-        target="_blank"
-        className="hover:text-orange-500 transition-colors"
-      >
-        <SiLeetcode size={30} />
-      </a>
-      <a
-        href="mailto:raiker.chinmay@gmail.com"
-        target="_blank"
-        className="hover:text-orange-500 transition-colors"
-      >
-        <Mail />
-      </a>
+    <div className="inline-flex flex-wrap items-center gap-5 justify-center relative">
+      {links.map((link, index) => (
+        <div
+          className={`border hover:border-transparent px-3 py-1 rounded-2xl relative group transition-all hover:-translate-y-1 ease-in-out duration-300 ${
+            isDarkTheme ? 'text-white border-white ' : 'text-black border-black'
+          }`}
+          onClick={() => window.open(link.href, '_blank')}
+          key={index}
+          style={{ cursor: 'pointer' }}
+        >
+          <span className="relative z-10 flex items-center gap-2">
+            {link.icon} {link.label}
+          </span>
+          <span
+            className={`absolute inset-0 ${link.bgColor} transition-all duration-300 ease-in-out scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 rounded-2xl`}
+          ></span>
+        </div>
+      ))}
     </div>
     <button
-      onClick={() => window.open("/resume.pdf", "_blank")}
-      className={`rounded glow-box inline-flex items-center gap-2 bg-transparent hover:shadow-md hover:shadow-orange-400 transition duration-300 ease-in-out py-2 px-4 ${
-        isDarkTheme ? "text-white" : "text-black"
+      onClick={() => window.open('/resume.pdf', '_blank')}
+      className={`rounded glow-box inline-flex items-center gap-2 bg-transparent hover:shadow-md transition duration-300 ease-in-out py-2 px-4 ${
+        isDarkTheme
+          ? 'text-white hover:shadow-gray-300'
+          : 'text-black hover:shadow-gray-700'
       }`}
     >
       <Download className="w-4 h-4" />

@@ -1,6 +1,6 @@
-import { Mail, Phone, Send } from "lucide-react";
-import { Button, Textarea, Input } from "@/components/ui";
-import { useToast } from "@/hooks/use-toast";
+import { Mail, Phone, Send } from 'lucide-react';
+import { Button, Textarea, Input } from '@/components/ui';
+import { useToast } from '@/hooks/use-toast';
 
 type ContactSectionProps = {
   isDarkTheme: boolean;
@@ -15,17 +15,17 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
 
     // Validate form data
     const payload = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
     };
 
     // Basic validation
     if (!payload.name || !payload.email || !payload.message) {
       toast({
-        title: "Incomplete Form",
-        description: "Please fill in all fields",
-        variant: "destructive",
+        title: 'Incomplete Form',
+        description: 'Please fill in all fields',
+        variant: 'destructive',
       });
       return;
     }
@@ -34,18 +34,18 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(payload.email as string)) {
       toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address",
-        variant: "destructive",
+        title: 'Invalid Email',
+        description: 'Please enter a valid email address',
+        variant: 'destructive',
       });
       return;
     }
 
     try {
-      const response = await fetch("/api/sendEmail", {
-        method: "POST",
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
       });
@@ -53,33 +53,36 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to send email");
+        throw new Error(data.error || 'Failed to send email');
       }
 
       toast({
-        title: "Message Sent",
-        description: "Your message was sent successfully!",
-        variant: "success",
+        title: 'Message Sent',
+        description: 'Your message was sent successfully!',
+        variant: 'success',
       });
 
       form.reset(); // Reset the form after successful submission
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again later.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to send message. Please try again later.',
+        variant: 'destructive',
       });
     }
   };
   return (
-    <section id="contact" className="py-20 px-4">
+    <section
+      id="contact"
+      className={`${isDarkTheme ? 'bg-black' : 'bg-white'} py-20 px-4`}
+    >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">Contact Me</h2>
           <p
             className={`${
-              isDarkTheme ? "text-gray-400" : "text-gray-600"
+              isDarkTheme ? 'text-gray-400' : 'text-gray-600'
             } max-w-2xl mx-auto`}
           >
             Have a project in mind or want to discuss opportunities? I'd love to
@@ -99,10 +102,10 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
               placeholder="Your Name"
               className={`${
                 isDarkTheme
-                  ? "bg-black/50 border-white/10"
-                  : "bg-white/50 border-black/10"
+                  ? 'bg-black/50 border-white/10'
+                  : 'bg-white/50 border-black/10'
               } border rounded-xl ${
-                isDarkTheme ? "placeholder-gray-400" : "placeholder-gray-600"
+                isDarkTheme ? 'placeholder-gray-400' : 'placeholder-gray-600'
               } px-4 py-3`}
             />
             <Input
@@ -111,10 +114,10 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
               placeholder="Your Email"
               className={`${
                 isDarkTheme
-                  ? "bg-black/50 border-white/10"
-                  : "bg-white/50 border-black/10"
+                  ? 'bg-black/50 border-white/10'
+                  : 'bg-white/50 border-black/10'
               } border rounded-xl ${
-                isDarkTheme ? "placeholder-gray-400" : "placeholder-gray-600"
+                isDarkTheme ? 'placeholder-gray-400' : 'placeholder-gray-600'
               } px-4 py-3`}
             />
             <Textarea
@@ -122,15 +125,19 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
               placeholder="Your Message"
               className={`${
                 isDarkTheme
-                  ? "bg-black/50 border-white/10"
-                  : "bg-white/50 border-black/10"
+                  ? 'bg-black/50 border-white/10'
+                  : 'bg-white/50 border-black/10'
               } border rounded-xl ${
-                isDarkTheme ? "placeholder-gray-400" : "placeholder-gray-600"
+                isDarkTheme ? 'placeholder-gray-400' : 'placeholder-gray-600'
               } px-4 py-3 min-h-[150px]`}
             />
             <Button
               type="submit"
-              className="w-fit rounded-xl gap-2 bg-gradient-to-r from-orange-700 via-orange-600 to-orange-700 hover:from-orange-500 hover:via-orange-400 hover:to-orange-500 transition-all py-3 text-white"
+              className={`w-fit rounded-xl gap-2 hover:-translate-y-2 ease-in-out duration-200 transition-all py-3 ${
+                isDarkTheme
+                  ? 'bg-white/80  text-black'
+                  : 'bg-black/80  text-white'
+              } `}
             >
               <Send className="w-4 h-4" />
               Send Message
@@ -139,23 +146,19 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
 
           {/* Divider */}
           <div
-            className={`w-px ${isDarkTheme ? "bg-white/10" : "bg-black/10"}`}
+            className={`w-px ${isDarkTheme ? 'bg-white/10' : 'bg-black/10'}`}
           ></div>
 
           {/* Contact Details Section */}
           <div className="flex flex-col gap-4 my-auto">
             <h1 className="text-xl font-semibold">Contact Details</h1>
-            <div className="flex items-center gap-3">
-              <Phone className="text-orange-500" />
-              <p className={isDarkTheme ? "text-gray-400" : "text-gray-600"}>
-                +91-8817420747
-              </p>
+            <div className=" flex items-center gap-3">
+              <Phone />
+              <p>+91-8817420747</p>
             </div>
             <div className="flex items-center gap-3">
-              <Mail className="text-orange-500" />
-              <p className={isDarkTheme ? "text-gray-400" : "text-gray-600"}>
-                raiker.chinmay@gmail.com
-              </p>
+              <Mail />
+              <p>raiker.chinmay@gmail.com</p>
             </div>
           </div>
         </div>

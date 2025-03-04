@@ -1,18 +1,10 @@
-"use client";
-
-import { useState } from "react";
-import { projects } from "@/utils/data";
-import { Card, CardContent } from "@/components/ui/card";
-import { ExternalLink, GithubIcon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-
+import { projects } from '@/utils/data';
+import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 interface ProjectsSectionProps {
   isDarkTheme: boolean;
 }
 
 function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
     <section
       id="projects"
@@ -22,80 +14,93 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
         <h2 className="text-3xl md:text-5xl font-bold mb-4">Projects</h2>
       </div>
 
-      <div className="flex flex-wrap gap-10 justify-center">
+      <div className="flex flex-wrap gap-10 justify-between">
         {projects.map((project, index) => (
-          <Card
+          <div
             key={index}
-            className={`${
+            className={`relative w-[450px] h-[550px] shadow-sm rounded-2xl overflow-hidden group transition-all duration-500 ease-in-out ${
               isDarkTheme
-                ? "bg-black/50 border-white/10"
-                : "bg-white/50 border-black/10"
-            } border shadow-lg transition-all hover:shadow-orange-500/20 hover:scale-105 duration-300 ${
-              isDarkTheme ? "text-white" : "text-black"
-            } cursor-pointer w-full max-w-sm`}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
+                ? 'bg-gray-900 border-white/10 hover:shadow-white'
+                : 'bg-white/50 border-black/50 hover:shadow-black'
+            } border shadow-sm  ${isDarkTheme ? 'text-white' : 'text-black'}`}
           >
-            <CardContent className="p-6 flex flex-col items-center gap-5 justify-around h-full">
-              <h3 className="text-2xl md:text-4xl font-semibold mb-2">
+            {/* Content Face */}
+            <div className="absolute bottom-0 left-0 w-full h-full flex flex-col items-center justify-between gap-10 p-6 transition-all">
+              <div className="text-sm md:text-4xl font-semibold text-center">
                 {project.name}
-              </h3>
-              <AnimatePresence>
-                <motion.div
-                  key={`project-info-${index}`}
-                  initial={{ height: 100, opacity: 0.6 }}
-                  animate={{
-                    height: hoveredIndex === index ? "auto" : 100,
-                    opacity: hoveredIndex === index ? 1 : 0.6,
-                  }}
-                  exit={{ height: 100, opacity: 0.6 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="overflow-hidden relative"
-                >
-                  <p>{project.info}</p>
-                </motion.div>
-              </AnimatePresence>
-              <div className="flex flex-wrap justify-center gap-3">
-                {project.tech.map((t, techIndex) => (
-                  <div
-                    key={techIndex}
-                    className={`rounded-xl border ${
-                      isDarkTheme ? "border-gray-600" : "border-gray-400"
-                    } px-2 py-1`}
-                  >
-                    {t}
-                  </div>
-                ))}
               </div>
 
               <div
                 className={`${
-                  isDarkTheme ? "text-gray-400" : "text-gray-600"
-                } inline-flex flex-wrap items-center gap-5 justify-center mt-4`}
+                  isDarkTheme ? 'text-gray-400' : 'text-gray-600'
+                } text-center`}
               >
-                <a
-                  href={project.repository_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`hover:text-orange-500 ${
-                    isDarkTheme ? "text-white" : "text-black"
-                  } transition-colors`}
-                >
-                  <GithubIcon size={24} />
-                </a>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`hover:text-orange-500 ${
-                    isDarkTheme ? "text-white" : "text-black"
-                  } transition-colors`}
-                >
-                  <ExternalLink size={24} />
-                </a>
+                {project.info}
               </div>
-            </CardContent>
-          </Card>
+
+              {/* Tech Stack */}
+              <div className="flex flex-wrap gap-1 justify-center items-center">
+                {project.tech.map((tech, i) => (
+                  <span
+                    key={i}
+                    className={`rounded-xl border ${
+                      isDarkTheme ? 'border-gray-600' : 'border-gray-400'
+                    } px-2 py-1`}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Links Github and External */}
+
+              <div className="inline-flex flex-wrap items-center gap-5 justify-center relative">
+                <div
+                  className={`border px-3 py-1 rounded-2xl relative group transition-all hover:-translate-y-1 hover:shadow-sm ease-in-out duration-300 ${
+                    isDarkTheme
+                      ? 'text-white border-white hover:shadow-white '
+                      : 'text-black border-black hover:shadow-black'
+                  }`}
+                  onClick={() => window.open(project.repository_link, '_blank')}
+                  key={index}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span className="relative flex items-center gap-2">
+                    <FaGithub size={20} />
+                    <p>GitHub</p>
+                  </span>
+                </div>
+
+                <div
+                  className={`border px-3 py-1 rounded-2xl relative group transition-all hover:-translate-y-1 hover:shadow-sm ease-in-out duration-300 ${
+                    isDarkTheme
+                      ? 'text-white border-white hover:shadow-white '
+                      : 'text-black border-black hover:shadow-black'
+                  }`}
+                  onClick={() => window.open(project.link, '_blank')}
+                  key={index}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span className="relative flex items-center gap-2">
+                    <FaExternalLinkAlt size={20} />
+                    <p>External Link</p>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Hover Effect - Background */}
+
+            <div
+              className="absolute w-full h-full transition-all duration-500 ease-in-out group-hover:h-[1vh] rounded-b-xl flex items-center justify-center gap-6"
+              style={{
+                backgroundImage: `url('/project_${index + 1}.png')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundBlendMode: 'overlay',
+              }}
+            ></div>
+          </div>
         ))}
       </div>
     </section>

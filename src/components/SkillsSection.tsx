@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui";
-import { skills } from "@/utils/data";
+import { Card, CardContent } from '@/components/ui';
+import { skills } from '@/utils/data';
 
 interface SkillsSectionProps {
   isDarkTheme: boolean;
@@ -7,8 +7,12 @@ interface SkillsSectionProps {
 
 const SkillsSection = ({ isDarkTheme }: SkillsSectionProps) => (
   <section id="skills" className="mx-auto px-4">
-    <div className="text-center mb-16">
-      <h2 className="text-3xl md:text-5xl font-bold mb-4">
+    <div className="mb-16 flex justify-center">
+      <h2
+        className={`text-3xl md:text-5xl font-bold pb-2 border-b border-transparent hover:border-opacity-100 transition-all duration-200 ease-in-out w-fit ${
+          isDarkTheme ? 'hover:border-white' : 'hover:border-black'
+        }`}
+      >
         What I Bring to the Table
       </h2>
     </div>
@@ -17,21 +21,19 @@ const SkillsSection = ({ isDarkTheme }: SkillsSectionProps) => (
       {skills.map((skill, index) => (
         <Card
           key={index}
-          className={`${
+          className={`transition-all ease-in-out duration-300 ${
             isDarkTheme
-              ? "bg-black/50 border-white/10"
-              : "bg-white/50 border-black/10"
-          } border shadow-lg transition-all hover:shadow-orange-500/20 ${
-            isDarkTheme ? "text-white" : "text-black"
-          }`}
+              ? 'bg-gray-900 border-white/10 hover:shadow-white'
+              : 'bg-white/50 border-black/50 hover:shadow-black'
+          } border shadow-sm  ${isDarkTheme ? 'text-white' : 'text-black'}`}
         >
-          <CardContent className="p-6 flex flex-col items-center gap-5">
-            <h3 className="text-2xl md:text-4xl font-semibold mb-2 ">
+          <CardContent className="grid grid-cols-1 grid-rows-3 gap-4 items-center">
+            <div className="text-sm md:text-4xl font-semibold text-center">
               {skill.title}
-            </h3>
+            </div>
             <div
               className={`${
-                isDarkTheme ? "text-gray-400" : "text-gray-600"
+                isDarkTheme ? 'text-gray-400' : 'text-gray-600'
               } text-center`}
             >
               {skill.data}
@@ -41,7 +43,7 @@ const SkillsSection = ({ isDarkTheme }: SkillsSectionProps) => (
                 <span
                   key={i}
                   className={`rounded-xl border ${
-                    isDarkTheme ? "border-gray-600" : "border-gray-400"
+                    isDarkTheme ? 'border-gray-600' : 'border-gray-400'
                   } px-2 py-1`}
                 >
                   {tech}
