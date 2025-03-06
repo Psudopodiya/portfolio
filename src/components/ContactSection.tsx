@@ -1,6 +1,7 @@
-import { Mail, Phone, Send } from 'lucide-react';
-import { Button, Textarea, Input } from '@/components/ui';
+import { Button, Input, Textarea } from '@/components/ui';
+import { TEXT_COLORS } from '@/constants/styles';
 import { useToast } from '@/hooks/use-toast';
+import { Mail, Phone, Send } from 'lucide-react';
 
 type ContactSectionProps = {
   isDarkTheme: boolean;
@@ -73,17 +74,14 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
     }
   };
   return (
-    <section
-      id="contact"
-      className={`${isDarkTheme ? 'bg-black' : 'bg-white'} py-20 px-4`}
-    >
+    <section id="contact" className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">Contact Me</h2>
           <p
-            className={`${
-              isDarkTheme ? 'text-gray-400' : 'text-gray-600'
-            } max-w-2xl mx-auto`}
+            className={`max-w-2xl mx-auto ${
+              isDarkTheme ? TEXT_COLORS.light_primary : TEXT_COLORS.dark_primary
+            }`}
           >
             Have a project in mind or want to discuss opportunities? I'd love to
             hear from you!
@@ -167,4 +165,4 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
   );
 }
 
-export default ContactSection;
+export { ContactSection };

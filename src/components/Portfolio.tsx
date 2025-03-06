@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+// import Scene from '@/components/Background';
+import { Header } from '@/components/Header';
 import { NavigationPopover } from '@/components/NavPopover';
-import ProjectsSecton from './ProjectsSection';
-import HeroSection from './HeroSection';
-import Header from '@/components/Header';
-import SkillsSection from './SkillsSection';
+import { useEffect, useState } from 'react';
+import { ContactSection } from './ContactSection';
+import { HeroSection } from './HeroSection';
+import { ProjectsSection } from './ProjectsSection';
+import { SkillsSection } from './SkillsSection';
 
-import ContactSection from './ContactSection';
+import { TEXT_COLORS } from '@/constants/styles';
 
 import './Portfolio.css';
 
@@ -27,25 +29,23 @@ export default function Portfolio() {
 
   return (
     <div
-      className={`relative min-h-screen ${
-        isDarkTheme
-          ? 'bg-[#1a1a1a] text-[#e0e0e0]'
-          : 'bg-[#f8f9fa] text-[#333333]'
+      className={`relative min-h-screen bg-transparent ${
+        isDarkTheme ? TEXT_COLORS.light : TEXT_COLORS.dark
       }`}
     >
-      {/* Content */}
-      <div
-        className={`relative z-10 px-5 ${
-          isDarkTheme ? 'bg-black' : 'bg-white'
-        }`}
-      >
+      {/* <div className="absolute inset-0 -z-10">
+        <Scene isDarkTheme={isDarkTheme} />
+      </div> */}
+
+      {/* Contents */}
+      <div className="elative z-10 px-5 bg-transparent ">
         <Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
 
         <HeroSection isDarkTheme={isDarkTheme} />
 
         <SkillsSection isDarkTheme={isDarkTheme} />
 
-        <ProjectsSecton isDarkTheme={isDarkTheme} />
+        <ProjectsSection isDarkTheme={isDarkTheme} />
 
         <ContactSection isDarkTheme={isDarkTheme} />
       </div>

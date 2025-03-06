@@ -1,3 +1,4 @@
+import { BG_COLORS, SHADOW_COLORS, TEXT_COLORS } from '@/constants/styles';
 import { projects } from '@/utils/data';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 interface ProjectsSectionProps {
@@ -18,11 +19,11 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
         {projects.map((project, index) => (
           <div
             key={index}
-            className={`relative w-[450px] h-[550px] shadow-sm rounded-2xl overflow-hidden group transition-all duration-500 ease-in-out ${
+            className={`relative w-[60vh] h-[70vh] border shadow-sm rounded-2xl overflow-hidden group transition-all duration-500 ease-in-out ${
               isDarkTheme
-                ? 'bg-gray-900 border-white/10 hover:shadow-white'
-                : 'bg-white/50 border-black/50 hover:shadow-black'
-            } border shadow-sm  ${isDarkTheme ? 'text-white' : 'text-black'}`}
+                ? `hover:${SHADOW_COLORS.light} text-${TEXT_COLORS.light} hover:${BG_COLORS.dark_secondary}`
+                : `hover:${SHADOW_COLORS.dark} text-${TEXT_COLORS.dark} hover:${BG_COLORS.light_secondary}`
+            }`}
           >
             {/* Content Face */}
             <div className="absolute bottom-0 left-0 w-full h-full flex flex-col items-center justify-between gap-10 p-6 transition-all">
@@ -30,23 +31,12 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
                 {project.name}
               </div>
 
-              <div
-                className={`${
-                  isDarkTheme ? 'text-gray-400' : 'text-gray-600'
-                } text-center`}
-              >
-                {project.info}
-              </div>
+              <div className="text-center">{project.info}</div>
 
               {/* Tech Stack */}
               <div className="flex flex-wrap gap-1 justify-center items-center">
                 {project.tech.map((tech, i) => (
-                  <span
-                    key={i}
-                    className={`rounded-xl border ${
-                      isDarkTheme ? 'border-gray-600' : 'border-gray-400'
-                    } px-2 py-1`}
-                  >
+                  <span key={i} className="rounded-xl border px-2 py-1">
                     {tech}
                   </span>
                 ))}
@@ -106,5 +96,4 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
     </section>
   );
 }
-
-export default ProjectsSection;
+export { ProjectsSection };

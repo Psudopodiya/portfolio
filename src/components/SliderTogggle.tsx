@@ -1,8 +1,26 @@
 import { motion } from 'framer-motion';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import { FiMoon, FiSun } from 'react-icons/fi';
+import { FaRegStar } from 'react-icons/fa';
 
-const TOGGLE_CLASSES =
-  'text-xs border rounded-2xl font-medium flex items-center gap-2 px-4 py-2 transition-colors relative z-10';
+// const TOGGLE_OPTIONS = [
+//   {
+//     id: 'light',
+//     icon: FiSun,
+//     label: 'Light',
+//     selectedColor: 'text-yellow-800',
+//     unselectedColor: 'text-yellow-100',
+//   },
+//   {
+//     id: 'dark',
+//     icon: FiMoon,
+//     label: 'Dark',
+//     selectedColor: 'text-blue-600',
+//     unselectedColor: 'text-blue-500',
+//   },
+// ];
+
+// const TOGGLE_CLASSES =
+//   'text-xs border rounded-2xl font-medium flex items-center gap-2 px-4 py-2 transition-colors relative z-10';
 
 interface SliderToggleProps {
   selected: boolean;
@@ -10,57 +28,91 @@ interface SliderToggleProps {
 }
 
 const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
-  const toggleOptions = [
-    {
-      id: 'light',
-      icon: FiSun,
-      label: 'Light',
-      selectedColor: 'text-yellow-800',
-      unselectedColor: 'text-yellow-100',
-    },
-    {
-      id: 'dark',
-      icon: FiMoon,
-      label: 'Dark',
-      selectedColor: 'text-blue-600',
-      unselectedColor: 'text-blue-500',
-    },
-  ];
-
+  const isDarkMode = !selected;
   return (
-    <div className="relative flex gap-5 w-fit items-center rounded-full">
-      {toggleOptions.map((option) => {
-        const isSelected = selected === (option.id === 'light');
-        return (
-          <button
-            key={option.id}
-            className={`${TOGGLE_CLASSES} hover:bg-slate-400 transition-all ease-in-out duration-300`}
-            onClick={() => setSelected(option.id as 'light' | 'dark')}
-          >
+    <div className="flex items-center gap-3">
+      <motion.button
+        onClick={() => setSelected(isDarkMode ? 'light' : 'dark')}
+        className={`relative w-16 h-8 rounded-full p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+          isDarkMode
+            ? 'bg-slate-800 focus:ring-slate-600'
+            : 'bg-blue-400 focus:ring-blue-500'
+        }`}
+        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <motion.div
+          className="relative flex items-center justify-center w-6 h-6 rounded-full"
+          initial={false}
+          animate={{
+            x: isDarkMode ? '100%' : '0%',
+            backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 500,
+            damping: 30,
+            bounce: 0.2,
+          }}
+        >
+          {isDarkMode ? (
             <motion.div
-              animate={{
-                scale: isSelected ? 1.2 : 1,
-              }}
-              whileHover="Hovering ??"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="relative"
             >
-              <div className="flex items-center gap-2">
-                <option.icon
-                  className={`relative z-10 text-lg md:text-sm ${
-                    isSelected ? option.selectedColor : option.unselectedColor
-                  }`}
-                />
-                <span
-                  className={`relative z-10 ${
-                    isSelected ? option.selectedColor : option.unselectedColor
-                  }`}
-                >
-                  {option.label}
-                </span>
-              </div>
+              {/* Moon shape */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-white"
+              >
+                <FiMoon size={26} />
+              </motion.div>
             </motion.div>
-          </button>
-        );
-      })}
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-yellow-500"
+            >
+              <FiSun size={16} />
+            </motion.div>
+          )}
+        </motion.div>
+
+        {/* Additional stars in the background for dark mode */}
+        {isDarkMode && (
+          <>
+            <motion.div
+              className="absolute bottom-3.5 left-1 text-white"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.7 }}
+              transition={{ delay: 0.2 }}
+            >
+              <FaRegStar size={8} />
+            </motion.div>
+            <motion.div
+              className="absolute top-1.5 left-3.5 text-white"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.5 }}
+              transition={{ delay: 0.3 }}
+            >
+              <FaRegStar size={8} />
+            </motion.div>
+            <motion.div
+              className="absolute bottom-1.5 left-2.5 text-white"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.5 }}
+              transition={{ delay: 0.3 }}
+            >
+              <FaRegStar size={10} />
+            </motion.div>
+          </>
+        )}
+      </motion.button>
     </div>
   );
 };

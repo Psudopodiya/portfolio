@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-scroll';
+import { BG_COLORS, TEXT_COLORS } from '@/constants/styles';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Menu } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-scroll';
 
 const sections = [
   { id: 'hero', name: 'Home' },
@@ -14,7 +15,7 @@ interface NavigationPopoverProps {
   isDarkTheme: boolean;
 }
 
-export function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
+function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,9 +26,11 @@ export function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
         onHoverEnd={() => setIsOpen(false)}
       >
         <motion.button
-          className={`flex items-center justify-center w-12 h-12 ${
-            isDarkTheme ? ' bg-white text-black' : 'bg-black text-white'
-          } rounded-full shadow-lg`}
+          className={`flex items-center justify-center w-12 h-12 rounded-full shadow-lg ${
+            isDarkTheme
+              ? `${TEXT_COLORS.dark} ${BG_COLORS.light}`
+              : `${TEXT_COLORS.light} ${BG_COLORS.dark}`
+          } `}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -39,9 +42,11 @@ export function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className={`absolute bottom-full left-0 mb-2 ${
-                isDarkTheme ? 'bg-white text-black' : 'bg-black text-white'
-              } rounded-2xl shadow-lg p-2`}
+              className={`absolute bottom-full left-0 mb-2 rounded-2xl shadow-lg p-2 ${
+                isDarkTheme
+                  ? `${TEXT_COLORS.dark} ${BG_COLORS.light}`
+                  : `${TEXT_COLORS.light} ${BG_COLORS.dark}`
+              }`}
             >
               <nav className="flex flex-col space-y-1">
                 {sections.map((section) => (
@@ -50,11 +55,7 @@ export function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
                     to={section.id}
                     smooth={true}
                     duration={500}
-                    className={`px-4 py-2 text-sm ${
-                      isDarkTheme
-                        ? 'text-black hover:bg-gray-300'
-                        : 'text-white hover:bg-gray-300'
-                    } rounded transition-colors`}
+                    className={`px-4 py-2 text-sm rounded transition-colors  ${isDarkTheme ? `hover:${BG_COLORS.light_secondary}` : `hover:${BG_COLORS.dark_secondary}`}`}
                   >
                     {section.name}
                   </Link>
@@ -67,3 +68,5 @@ export function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
     </div>
   );
 }
+
+export { NavigationPopover };
