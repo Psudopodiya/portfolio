@@ -24,14 +24,14 @@
 }
 
 @property --angle {
-  syntax: "<angle>";
+  syntax: '<angle>';
   initial-value: 0deg;
   inherits: false;
 }
 
 .glow-box::after,
 .glow-box::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: -2px;
   background-image: conic-gradient(

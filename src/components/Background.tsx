@@ -1,31 +1,10 @@
+import { Theme } from '@/types/types';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
-import { BG_COLORS } from '@/constants/styles';
 import * as THREE from 'three';
 
-// Add this interface before the ShootingStars component
-interface Star {
-  id: number;
-  startPosition: THREE.Vector3;
-  velocity: THREE.Vector3;
-}
-
-interface ShootingStarProps {
-  startPosition: THREE.Vector3;
-  velocity: THREE.Vector3;
-  size: number;
-  color: string;
-  onRemove: () => void;
-}
-
-const ShootingStar = ({
-  startPosition,
-  velocity,
-  size,
-  color,
-  onRemove,
-}: ShootingStarProps) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+const ShootingStar = ({ startPosition, velocity, onRemove }) => {
+  const meshRef = useRef();
 
   useFrame(() => {
     if (meshRef.current) {
@@ -41,36 +20,36 @@ const ShootingStar = ({
 
   return (
     <mesh ref={meshRef} position={startPosition}>
-      <sphereGeometry args={[size, 12, 12]} />
-      <meshBasicMaterial color={color} />
+      <sphereGeometry args={[0.2, 8, 8]} />
+      <meshBasicMaterial color="white" />
     </mesh>
   );
 };
 
 // Component that spawns shooting stars
-const ShootingStars = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
-  const [stars, setStars] = useState<Star[]>([]);
-  const color = isDarkTheme ? '#FFFFFF' : '#000000'; // White for dark, black for light
+const ShootingStars = () => {
+  const [stars, setStars] = useState([]);
 
+  // Spawn a new shooting star every 2 seconds
   useEffect(() => {
     const interval = setInterval(() => {
+      // Define a random starting position along the top (adjust as desired)
       const x = Math.random() * 200 - 100;
       const y = 50;
       const z = -20;
       const startPosition = new THREE.Vector3(x, y, z);
-      const velocity = new THREE.Vector3(
-        -0.5 - Math.random() * 0.5, // Randomize speed
-        -0.3 - Math.random() * 0.3,
-        0
-      );
+      // Define a diagonal velocity vector (tweak for speed and direction)
+      const velocity = new THREE.Vector3(-0.3, -0.3, 0);
+      // Use a unique id for each star
       const id = Math.random();
       setStars((prev) => [...prev, { id, startPosition, velocity }]);
-    }, 800); // Slightly faster spawning
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  const removeStar = (id: number) => {
+  // Handler to remove a star when it moves off-screen
+  const removeStar = (id) => {
     setStars((prev) => prev.filter((star) => star.id !== id));
   };
 
@@ -79,10 +58,8 @@ const ShootingStars = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
       {stars.map((star) => (
         <ShootingStar
           key={star.id}
-          startPosition={star.startPosition.clone()}
-          velocity={star.velocity.clone()}
-          size={0.3 + Math.random() * 0.5} // Vary sizes
-          color={color}
+          startPosition={star.startPosition}
+          velocity={star.velocity}
           onRemove={() => removeStar(star.id)}
         />
       ))}
@@ -91,18 +68,16 @@ const ShootingStars = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
 };
 
 interface SceneProps {
-  isDarkTheme: boolean;
+  theme: Theme;
 }
 // Main scene component that includes the background stars and shooting stars
-const Scene = ({ isDarkTheme }: SceneProps) => {
+const Scene = ({ theme }: SceneProps) => {
   return (
     <Canvas
       camera={{ position: [0, 0, 50], fov: 75 }}
-      className={`${
-        isDarkTheme ? BG_COLORS.dark : BG_COLORS.light
-      } w-full h-full -z-10`}
+      className={`${theme.background_base} w-full h-full -z-10`}
     >
-      <ShootingStars isDarkTheme={isDarkTheme} />
+      <ShootingStars />
     </Canvas>
   );
 };

@@ -1,4 +1,4 @@
-import { BG_COLORS, TEXT_COLORS } from '@/constants/styles';
+import { Theme } from '@/types/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
@@ -12,10 +12,10 @@ const sections = [
 ];
 
 interface NavigationPopoverProps {
-  isDarkTheme: boolean;
+  theme: Theme;
 }
 
-function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
+function NavigationPopover({ theme }: NavigationPopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -26,11 +26,8 @@ function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
         onHoverEnd={() => setIsOpen(false)}
       >
         <motion.button
-          className={`flex items-center justify-center w-12 h-12 rounded-full shadow-lg ${
-            isDarkTheme
-              ? `${TEXT_COLORS.dark} ${BG_COLORS.light}`
-              : `${TEXT_COLORS.light} ${BG_COLORS.dark}`
-          } `}
+          className={`flex items-center justify-center w-12 h-12 rounded-full shadow-lg ${theme.text_contrast} ${theme.background_secondary}
+`}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -42,11 +39,7 @@ function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className={`absolute bottom-full left-0 mb-2 rounded-2xl shadow-lg p-2 ${
-                isDarkTheme
-                  ? `${TEXT_COLORS.dark} ${BG_COLORS.light}`
-                  : `${TEXT_COLORS.light} ${BG_COLORS.dark}`
-              }`}
+              className={`absolute bottom-full left-0 mb-2 rounded-2xl shadow-xl p-2 ${theme.text_base} ${theme.background_base}`}
             >
               <nav className="flex flex-col space-y-1">
                 {sections.map((section) => (
@@ -55,7 +48,7 @@ function NavigationPopover({ isDarkTheme }: NavigationPopoverProps) {
                     to={section.id}
                     smooth={true}
                     duration={500}
-                    className={`px-4 py-2 text-sm rounded transition-colors  ${isDarkTheme ? `hover:${BG_COLORS.light_secondary}` : `hover:${BG_COLORS.dark_secondary}`}`}
+                    className={`px-4 py-2 text-sm rounded transition-colors ${theme.hover_background_base}`}
                   >
                     {section.name}
                   </Link>

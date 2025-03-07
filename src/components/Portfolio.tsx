@@ -1,55 +1,59 @@
-// import Scene from '@/components/Background';
+import { ContactSection } from '@/components/ContactSection';
 import { Header } from '@/components/Header';
+import { HeroSection } from '@/components/HeroSection';
 import { NavigationPopover } from '@/components/NavPopover';
+import { ProjectsSection } from '@/components/ProjectsSection';
+import { SkillsSection } from '@/components/SkillsSection';
 import { useEffect, useState } from 'react';
-import { ContactSection } from './ContactSection';
-import { HeroSection } from './HeroSection';
-import { ProjectsSection } from './ProjectsSection';
-import { SkillsSection } from './SkillsSection';
+import Scene from './Background';
 
-import { TEXT_COLORS } from '@/constants/styles';
+import { THEME_CLASSES } from '@/constants/styles';
+import { Theme } from '@/types/types';
 
 import './Portfolio.css';
 
 export default function Portfolio() {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [theme, setTheme] = useState<Theme>(THEME_CLASSES.dark);
 
   useEffect(() => {
-    // Set the initial theme on page load
-    if (isDarkTheme) {
-      document.documentElement.classList.add('dark-theme');
-    } else {
-      document.documentElement.classList.remove('dark-theme');
-    }
-  }, [isDarkTheme]);
+    // Set initial theme based on system preference
+    const isSystemDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    const initialTheme = isSystemDark
+      ? THEME_CLASSES.dark
+      : THEME_CLASSES.light;
+    setTheme(initialTheme);
+    document.body.classList.toggle('dark-theme', isSystemDark);
+  }, []);
 
-  const toggleTheme = (theme: 'light' | 'dark') => {
-    setIsDarkTheme(theme === 'dark');
+  const toggleTheme = (newTheme: 'light' | 'dark') => {
+    setTheme(newTheme === 'dark' ? THEME_CLASSES.dark : THEME_CLASSES.light);
+    document.body.classList.toggle('dark-theme', newTheme === 'dark');
   };
 
   return (
     <div
-      className={`relative min-h-screen bg-transparent ${
-        isDarkTheme ? TEXT_COLORS.light : TEXT_COLORS.dark
-      }`}
+      id="portfolio_base"
+      className={`relative min-h-screen bg-transparent py-4 ${theme.text_base}  ${theme.text_base} `}
     >
-      {/* <div className="absolute inset-0 -z-10">
-        <Scene isDarkTheme={isDarkTheme} />
-      </div> */}
+      <div className="absolute inset-0 -z-10">
+        <Scene theme={theme} />
+      </div>
 
       {/* Contents */}
-      <div className="elative z-10 px-5 bg-transparent ">
-        <Header isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
+      <div className="relative z-10 px-5 bg-transparent ">
+        <Header theme={theme} toggleTheme={toggleTheme} />
 
-        <HeroSection isDarkTheme={isDarkTheme} />
+        <HeroSection theme={theme} />
 
-        <SkillsSection isDarkTheme={isDarkTheme} />
+        <SkillsSection theme={theme} />
 
-        <ProjectsSection isDarkTheme={isDarkTheme} />
+        <ProjectsSection theme={theme} />
 
-        <ContactSection isDarkTheme={isDarkTheme} />
+        <ContactSection theme={theme} />
       </div>
-      <NavigationPopover isDarkTheme={isDarkTheme} />
+      <NavigationPopover theme={theme} />
     </div>
   );
 }

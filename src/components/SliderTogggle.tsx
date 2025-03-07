@@ -1,34 +1,20 @@
+import { THEME_CLASSES } from '@/constants/styles';
+import { Theme } from '@/types/types';
 import { motion } from 'framer-motion';
-import { FiMoon, FiSun } from 'react-icons/fi';
 import { FaRegStar } from 'react-icons/fa';
-
-// const TOGGLE_OPTIONS = [
-//   {
-//     id: 'light',
-//     icon: FiSun,
-//     label: 'Light',
-//     selectedColor: 'text-yellow-800',
-//     unselectedColor: 'text-yellow-100',
-//   },
-//   {
-//     id: 'dark',
-//     icon: FiMoon,
-//     label: 'Dark',
-//     selectedColor: 'text-blue-600',
-//     unselectedColor: 'text-blue-500',
-//   },
-// ];
-
-// const TOGGLE_CLASSES =
-//   'text-xs border rounded-2xl font-medium flex items-center gap-2 px-4 py-2 transition-colors relative z-10';
+import { FiMoon, FiSun } from 'react-icons/fi';
 
 interface SliderToggleProps {
-  selected: boolean;
+  theme: Theme;
   setSelected: (theme: 'light' | 'dark') => void;
 }
 
-const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
-  const isDarkMode = !selected;
+const SliderToggle = ({ theme, setSelected }: SliderToggleProps) => {
+  // Determine if the current theme is dark
+  const isDarkMode = theme === THEME_CLASSES.dark;
+
+  // Toggle the theme based on the current state
+
   return (
     <div className="flex items-center gap-3">
       <motion.button
@@ -36,7 +22,7 @@ const SliderToggle = ({ selected, setSelected }: SliderToggleProps) => {
         className={`relative w-16 h-8 rounded-full p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
           isDarkMode
             ? 'bg-slate-800 focus:ring-slate-600'
-            : 'bg-blue-400 focus:ring-blue-500'
+            : 'bg-orange-400 focus:ring-orange-500'
         }`}
         aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
         whileHover={{ scale: 1.05 }}

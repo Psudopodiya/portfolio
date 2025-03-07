@@ -9,7 +9,9 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      colors: {},
+      colors: {
+        pear: '#C1E317',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

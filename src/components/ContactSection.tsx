@@ -1,13 +1,13 @@
 import { Button, Input, Textarea } from '@/components/ui';
-import { TEXT_COLORS } from '@/constants/styles';
 import { useToast } from '@/hooks/use-toast';
+import { Theme } from '@/types/types';
 import { Mail, Phone, Send } from 'lucide-react';
 
 type ContactSectionProps = {
-  isDarkTheme: boolean;
+  theme: Theme;
 };
 
-function ContactSection({ isDarkTheme }: ContactSectionProps) {
+function ContactSection({ theme }: ContactSectionProps) {
   const { toast } = useToast();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -77,12 +77,12 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
     <section id="contact" className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">Contact Me</h2>
-          <p
-            className={`max-w-2xl mx-auto ${
-              isDarkTheme ? TEXT_COLORS.light_primary : TEXT_COLORS.dark_primary
-            }`}
+          <h2
+            className={`text-3xl md:text-5xl font-bold mb-4 ${theme.text_secondary}`}
           >
+            Contact Me
+          </h2>
+          <p className="max-w-2xl mx-auto">
             Have a project in mind or want to discuss opportunities? I'd love to
             hear from you!
           </p>
@@ -98,44 +98,22 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
               type="text"
               name="name"
               placeholder="Your Name"
-              className={`${
-                isDarkTheme
-                  ? 'bg-black/50 border-white/10'
-                  : 'bg-white/50 border-black/10'
-              } border rounded-xl ${
-                isDarkTheme ? 'placeholder-gray-400' : 'placeholder-gray-600'
-              } px-4 py-3`}
+              className={`border rounded-xl px-4 py-3 ${theme.text_primary}`}
             />
             <Input
               type="email"
               name="email"
               placeholder="Your Email"
-              className={`${
-                isDarkTheme
-                  ? 'bg-black/50 border-white/10'
-                  : 'bg-white/50 border-black/10'
-              } border rounded-xl ${
-                isDarkTheme ? 'placeholder-gray-400' : 'placeholder-gray-600'
-              } px-4 py-3`}
+              className={`border rounded-xl px-4 py-3 ${theme.text_primary} `}
             />
             <Textarea
               name="message"
               placeholder="Your Message"
-              className={`${
-                isDarkTheme
-                  ? 'bg-black/50 border-white/10'
-                  : 'bg-white/50 border-black/10'
-              } border rounded-xl ${
-                isDarkTheme ? 'placeholder-gray-400' : 'placeholder-gray-600'
-              } px-4 py-3 min-h-[150px]`}
+              className={`border rounded-xl px-4 py-3 min-h-[150px] ${theme.text_primary} `}
             />
             <Button
               type="submit"
-              className={`w-fit rounded-xl gap-2 hover:-translate-y-2 ease-in-out duration-200 transition-all py-3 ${
-                isDarkTheme
-                  ? 'bg-white/80  text-black'
-                  : 'bg-black/80  text-white'
-              } `}
+              className={`w-fit rounded-xl gap-2 hover:-translate-y-1 ease-in-out duration-200 transition-all py-3 ${theme.background_contrast} ${theme.text_contrast} ${theme.hover_background_base}`}
             >
               <Send className="w-4 h-4" />
               Send Message
@@ -143,9 +121,7 @@ function ContactSection({ isDarkTheme }: ContactSectionProps) {
           </form>
 
           {/* Divider */}
-          <div
-            className={`w-px ${isDarkTheme ? 'bg-white/10' : 'bg-black/10'}`}
-          ></div>
+          <div className={`w-px ${theme.background_contrast}`}></div>
 
           {/* Contact Details Section */}
           <div className="flex flex-col gap-4 my-auto">

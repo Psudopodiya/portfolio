@@ -1,28 +1,31 @@
-import { BG_COLORS, SHADOW_COLORS, TEXT_COLORS } from '@/constants/styles';
+import { Theme } from '@/types/types';
 import { projects } from '@/utils/data';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 interface ProjectsSectionProps {
-  isDarkTheme: boolean;
+  theme: Theme;
 }
 
-function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
+function ProjectsSection({ theme }: ProjectsSectionProps) {
   return (
     <section
       id="projects"
       className="container mx-auto px-4 flex flex-col items-center gap-8 text-center py-20 my-20"
     >
       <div className="text-center">
-        <h2 className="text-3xl md:text-5xl font-bold mb-4">Projects</h2>
+        <h2
+          className={`text-3xl md:text-5xl font-bold mb-4 ${theme.text_secondary}`}
+        >
+          Projects
+        </h2>
       </div>
 
       <div className="flex flex-wrap gap-10 justify-between">
         {projects.map((project, index) => (
           <div
             key={index}
-            className={`relative w-[60vh] h-[70vh] border shadow-sm rounded-2xl overflow-hidden group transition-all duration-500 ease-in-out ${
-              isDarkTheme
-                ? `hover:${SHADOW_COLORS.light} text-${TEXT_COLORS.light} hover:${BG_COLORS.dark_secondary}`
-                : `hover:${SHADOW_COLORS.dark} text-${TEXT_COLORS.dark} hover:${BG_COLORS.light_secondary}`
+            className={`relative w-[60vh] h-[70vh] border shadow-sm rounded-2xl overflow-hidden group transition-all duration-500 ease-in-out 
+                ${theme.hover_shadow} ${theme.text_base}
+                
             }`}
           >
             {/* Content Face */}
@@ -46,11 +49,10 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
 
               <div className="inline-flex flex-wrap items-center gap-5 justify-center relative">
                 <div
-                  className={`border px-3 py-1 rounded-2xl relative group transition-all hover:-translate-y-1 hover:shadow-sm ease-in-out duration-300 ${
-                    isDarkTheme
-                      ? 'text-white border-white hover:shadow-white '
-                      : 'text-black border-black hover:shadow-black'
-                  }`}
+                  className={`border px-3 py-1 rounded-2xl relative group transition-all hover:-translate-y-1 hover:shadow-sm ease-in-out duration-300 
+                    ${theme.text_base} ${theme.border_base_color} ${theme.hover_shadow}
+                      
+                  `}
                   onClick={() => window.open(project.repository_link, '_blank')}
                   key={index}
                   style={{ cursor: 'pointer' }}
@@ -62,11 +64,8 @@ function ProjectsSection({ isDarkTheme }: ProjectsSectionProps) {
                 </div>
 
                 <div
-                  className={`border px-3 py-1 rounded-2xl relative group transition-all hover:-translate-y-1 hover:shadow-sm ease-in-out duration-300 ${
-                    isDarkTheme
-                      ? 'text-white border-white hover:shadow-white '
-                      : 'text-black border-black hover:shadow-black'
-                  }`}
+                  className={`border px-3 py-1 rounded-2xl relative group transition-all hover:-translate-y-1 hover:shadow-sm ease-in-out duration-300
+                   ${theme.text_base} ${theme.border_base_color} ${theme.hover_shadow}`}
                   onClick={() => window.open(project.link, '_blank')}
                   key={index}
                   style={{ cursor: 'pointer' }}

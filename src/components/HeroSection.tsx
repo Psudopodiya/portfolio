@@ -1,4 +1,4 @@
-import { TEXT_COLORS } from '@/constants/styles';
+import { Theme } from '@/types/types';
 import { Download } from 'lucide-react';
 import { CiLinkedin } from 'react-icons/ci';
 import { FiGithub } from 'react-icons/fi';
@@ -7,7 +7,7 @@ import { SiLeetcode } from 'react-icons/si';
 import './Portfolio.css';
 
 interface HeroSectionProps {
-  isDarkTheme: boolean;
+  theme: Theme;
 }
 
 const links = [
@@ -37,20 +37,17 @@ const links = [
   },
 ];
 
-function HeroSection({ isDarkTheme }: HeroSectionProps) {
+function HeroSection({ theme }: HeroSectionProps) {
   return (
     <section
       id="hero"
       className="container mx-auto px-4 flex flex-col items-center gap-8 text-center py-20 mb-10"
     >
       <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
-        Hi, I'm Chinmay Raiker
+        Hi, I'm{' '}
+        <span className={`${theme.text_secondary}`}>Chinmay Raiker</span>
       </h1>
-      <p
-        className={`text-lg sm:text-xl  max-w-2xl mx-auto ${
-          isDarkTheme ? TEXT_COLORS.light_primary : TEXT_COLORS.dark_primary
-        }`}
-      >
+      <p className="text-lg sm:text-xl  max-w-2xl mx-auto ">
         A Software Engineer, trying to transform elegant and productive ideas
         into Digital Solutions
       </p>
@@ -74,7 +71,7 @@ function HeroSection({ isDarkTheme }: HeroSectionProps) {
       </div>
       <button
         onClick={() => window.open('/resume.pdf', '_blank')}
-        className={`rounded glow-box inline-flex items-center gap-2 bg-transparent transition duration-300 ease-in-out py-2 px-4 shadow ${isDarkTheme ? 'shadow-white' : 'shadow-black'} `}
+        className={`rounded glow-box inline-flex items-center gap-2 transition duration-300 ease-in-out py-2 px-4 shadow ${theme.hover_background_base} `}
       >
         <Download className="w-4 h-4" />
         Download Resume
