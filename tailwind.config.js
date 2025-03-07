@@ -4,6 +4,12 @@ export default {
   content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        bitter: ['Bitter', 'serif'],
+        lato: ['Lato', 'sans-serif'],
+        nanum: ['"Nanum Gothic Coding"', 'monospace'],
+        playwrite: ['Playwrite IT Moderna', 'cursive'],
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
