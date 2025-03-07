@@ -54,7 +54,6 @@ function ProjectsSection({ theme }: ProjectsSectionProps) {
                       
                   `}
                   onClick={() => window.open(project.repository_link, '_blank')}
-                  key={index}
                   style={{ cursor: 'pointer' }}
                 >
                   <span className="relative flex items-center gap-2">
@@ -67,7 +66,6 @@ function ProjectsSection({ theme }: ProjectsSectionProps) {
                   className={`border px-3 py-1 rounded-2xl relative group transition-all hover:-translate-y-1 hover:shadow-sm ease-in-out duration-300
                    ${theme.text_base} ${theme.border_base_color} ${theme.hover_shadow}`}
                   onClick={() => window.open(project.link, '_blank')}
-                  key={index}
                   style={{ cursor: 'pointer' }}
                 >
                   <span className="relative flex items-center gap-2">

@@ -39,7 +39,7 @@ export default function Portfolio() {
       id="portfolio_base"
       className={`font-nanum relative min-h-screen bg-transparent py-4 ${theme.text_base}  ${theme.text_base} `}
     >
-      <div className="absolute inset-0 -z-10">
+      <div className="fixed pointer-events-none inset-0 -z-10">
         <Scene theme={theme} />
       </div>
 

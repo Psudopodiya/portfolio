@@ -4,11 +4,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 const SNOWFLAKE_COUNT = 250;
 
-const Snow = () => {
+interface SnowProps {
+  isDarkMode: boolean;
+}
+const Snow = ({ isDarkMode }: SnowProps) => {
   const pointsRef = useRef<THREE.Points>(null);
   const [snowflakeTexture, setSnowflakeTexture] = useState<THREE.Texture>();
   const { viewport } = useThree();
-
+  console.log(isDarkMode);
   // Generate snowflake texture on mount
   useEffect(() => {
     const canvas = document.createElement('canvas');
@@ -17,14 +20,23 @@ const Snow = () => {
 
     const context = canvas.getContext('2d')!;
     const gradient = context.createRadialGradient(15, 15, 2, 15, 15, 15);
-    gradient.addColorStop(0, 'white');
-    gradient.addColorStop(1, 'rgba(255,255,255,0)');
+
+    if (isDarkMode) {
+      gradient.addColorStop(0, 'white');
+      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+    } else {
+      gradient.addColorStop(0, 'black');
+      gradient.addColorStop(1, 'rgba(51,51,51,0)');
+    }
+
+    // gradient.addColorStop(0, 'white');
+    // gradient.addColorStop(1, 'rgba(255,255,255,0)');
 
     context.fillStyle = gradient;
     context.fillRect(0, 0, 32, 32);
 
     setSnowflakeTexture(new THREE.CanvasTexture(canvas));
-  }, []);
+  }, [isDarkMode]);
 
   // Create snowflake positions
   const snowflakePositions = useMemo(() => {
