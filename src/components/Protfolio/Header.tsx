@@ -1,5 +1,5 @@
 import { Theme } from '@/types/types';
-import SliderToggle from './SliderTogggle';
+import { SliderToggle } from './SliderTogggle';
 
 interface HeaderProps {
   theme: Theme;

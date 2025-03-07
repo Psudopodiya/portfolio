@@ -4,7 +4,7 @@ import { CiLinkedin } from 'react-icons/ci';
 import { FiGithub } from 'react-icons/fi';
 import { MdOutlineEmail } from 'react-icons/md';
 import { SiLeetcode } from 'react-icons/si';
-import './Portfolio.css';
+// import './Portfolio.css';
 
 interface HeroSectionProps {
   theme: Theme;

@@ -1,11 +1,13 @@
-import { ContactSection } from '@/components/ContactSection';
-import { Header } from '@/components/Header';
-import { HeroSection } from '@/components/HeroSection';
-import { NavigationPopover } from '@/components/NavPopover';
-import { ProjectsSection } from '@/components/ProjectsSection';
-import { SkillsSection } from '@/components/SkillsSection';
+import {
+  ContactSection,
+  Header,
+  HeroSection,
+  ProjectsSection,
+  SkillsSection,
+  NavigationPopover,
+} from '@/components/Protfolio';
 import { useEffect, useState } from 'react';
-import Scene from './Background';
+import { Scene } from '@/components/Background/Scene';
 
 import { THEME_CLASSES } from '@/constants/styles';
 import { Theme } from '@/types/types';

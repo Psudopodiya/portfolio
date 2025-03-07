@@ -9,7 +9,7 @@ interface SliderToggleProps {
   setSelected: (theme: 'light' | 'dark') => void;
 }
 
-const SliderToggle = ({ theme, setSelected }: SliderToggleProps) => {
+function SliderToggle({ theme, setSelected }: SliderToggleProps) {
   // Determine if the current theme is dark
   const isDarkMode = theme === THEME_CLASSES.dark;
 
@@ -101,6 +101,6 @@ const SliderToggle = ({ theme, setSelected }: SliderToggleProps) => {
       </motion.button>
     </div>
   );
-};
+}
 
-export default SliderToggle;
+export { SliderToggle };
