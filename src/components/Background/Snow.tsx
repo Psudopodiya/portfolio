@@ -9,12 +9,11 @@ interface SnowProps {
 }
 const Snow = ({ isDarkMode }: SnowProps) => {
   const pointsRef = useRef<THREE.Points>(null);
-  // const [snowflakeTexture, setSnowflakeTexture] = useState<THREE.Texture>();
   const { viewport } = useThree();
 
   const snowflakeTexture = useLoader(
     THREE.TextureLoader,
-    `${isDarkMode ? 'public/sprites/snowflake-light.svg' : 'public/sprites/snowflake-dark.svg'}`
+    `${isDarkMode ? '/sprites/snowflake-light.svg' : '/sprites/snowflake-dark.svg'}`
   );
 
   // Generate snowflake texture on mount
