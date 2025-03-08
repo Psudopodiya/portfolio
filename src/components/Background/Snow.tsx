@@ -1,17 +1,22 @@
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame, useLoader, useThree } from '@react-three/fiber';
+import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { useEffect, useMemo, useRef, useState } from 'react';
 
-const SNOWFLAKE_COUNT = 250;
+const SNOWFLAKE_COUNT = 1000;
 
 interface SnowProps {
   isDarkMode: boolean;
 }
 const Snow = ({ isDarkMode }: SnowProps) => {
   const pointsRef = useRef<THREE.Points>(null);
-  const [snowflakeTexture, setSnowflakeTexture] = useState<THREE.Texture>();
+  // const [snowflakeTexture, setSnowflakeTexture] = useState<THREE.Texture>();
   const { viewport } = useThree();
-  console.log(isDarkMode);
+
+  const snowflakeTexture = useLoader(
+    THREE.TextureLoader,
+    `${isDarkMode ? 'public/sprites/snowflake-light.svg' : 'public/sprites/snowflake-dark.svg'}`
+  );
+
   // Generate snowflake texture on mount
   useEffect(() => {
     const canvas = document.createElement('canvas');
@@ -29,13 +34,10 @@ const Snow = ({ isDarkMode }: SnowProps) => {
       gradient.addColorStop(1, 'rgba(51,51,51,0)');
     }
 
-    // gradient.addColorStop(0, 'white');
-    // gradient.addColorStop(1, 'rgba(255,255,255,0)');
-
     context.fillStyle = gradient;
     context.fillRect(0, 0, 32, 32);
 
-    setSnowflakeTexture(new THREE.CanvasTexture(canvas));
+    // setSnowflakeTexture(new THREE.CanvasTexture(canvas));
   }, [isDarkMode]);
 
   // Create snowflake positions
@@ -55,16 +57,19 @@ const Snow = ({ isDarkMode }: SnowProps) => {
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
+
     if (pointsRef.current) {
       const positions = (pointsRef.current.geometry as THREE.BufferGeometry)
         .attributes.position as THREE.BufferAttribute;
 
       for (let i = 0; i < SNOWFLAKE_COUNT; i++) {
         const ix = i * 3;
+        // Existing movement logic
         positions.array[ix] += 0.1 * Math.sin(i / 30 + time / 40);
         positions.array[ix + 2] += 0.1 * Math.cos(i / 50 + time / 20);
         positions.array[ix + 1] -= 0.1 * Math.cos(i / 150 + time / 70) + 0.1;
 
+        // Reset snowflake when it goes out of bounds
         if (positions.array[ix + 1] < -100) {
           positions.array[ix] = THREE.MathUtils.randFloatSpread(450);
           positions.array[ix + 1] = THREE.MathUtils.randFloatSpread(250);
@@ -100,6 +105,7 @@ const Snow = ({ isDarkMode }: SnowProps) => {
             map={snowflakeTexture}
             transparent
             depthWrite={false}
+            blending={THREE.AdditiveBlending}
           />
         </points>
       )}

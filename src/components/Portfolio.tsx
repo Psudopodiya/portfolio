@@ -1,13 +1,13 @@
+import { Scene } from '@/components/Background/Scene';
 import {
   ContactSection,
   Header,
   HeroSection,
+  NavigationPopover,
   ProjectsSection,
   SkillsSection,
-  NavigationPopover,
 } from '@/components/Protfolio';
 import { useEffect, useState } from 'react';
-import { Scene } from '@/components/Background/Scene';
 
 import { THEME_CLASSES } from '@/constants/styles';
 import { Theme } from '@/types/types';
@@ -39,7 +39,7 @@ export default function Portfolio() {
       id="portfolio_base"
       className={`font-nanum relative min-h-screen bg-transparent py-4 ${theme.text_base}  ${theme.text_base} `}
     >
-      <div className="fixed pointer-events-none inset-0 -z-10">
+      <div className="fixed inset-0 -z-10">
         <Scene theme={theme} />
       </div>
 

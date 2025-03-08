@@ -1,6 +1,6 @@
-import Snow from './Snow';
 import { Theme } from '@/types/types';
 import { Canvas } from '@react-three/fiber';
+import Snow from './Snow';
 
 interface SceneProps {
   theme: Theme;
