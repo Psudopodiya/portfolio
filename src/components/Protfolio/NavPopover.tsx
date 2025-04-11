@@ -19,14 +19,14 @@ function NavigationPopover({ theme }: NavigationPopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-4 left-4 z-50">
+    <div className="fixed sm:bottom-5 bottom-4 left-4 z-50">
       <motion.div
         className="relative"
         onHoverStart={() => setIsOpen(true)}
         onHoverEnd={() => setIsOpen(false)}
       >
         <motion.button
-          className={`flex items-center justify-center w-12 h-12 rounded-full shadow-lg ${theme.text_contrast} ${theme.background_secondary}
+          className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-lg ${theme.text_contrast} ${theme.background_secondary}
 `}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}

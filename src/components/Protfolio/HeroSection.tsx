@@ -41,7 +41,7 @@ function HeroSection({ theme }: HeroSectionProps) {
   return (
     <section
       id="hero"
-      className="container mx-auto px-4 flex flex-col items-center gap-8 text-center py-20 mb-10"
+      className="container mx-auto px-4 flex flex-col items-center gap-8 text-center py-20"
     >
       <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
         Hi, I'm{' '}
