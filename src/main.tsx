@@ -1,13 +1,17 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { Toaster } from "@/components/ui/toaster";
+import { lazy, StrictMode, Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
+import { Toaster } from '@/components/ui/toaster';
+import { LoadingFallback } from '@/components/Fallback/Loading.tsx';
 
-import "./index.css";
-import App from "./App.tsx";
+import './index.css';
 
-createRoot(document.getElementById("root")!).render(
+const App = lazy(() => import('./App.tsx'));
+
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
-    <Toaster />
+    <Suspense fallback={<LoadingFallback />}>
+      <App />
+      <Toaster />
+    </Suspense>
   </StrictMode>
 );

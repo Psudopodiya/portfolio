@@ -26,6 +26,16 @@ export default tseslint
           'warn',
           { allowConstantExport: true },
         ],
+        // Disable ESLint core rule in favor of TypeScript ESLint's version
+        'no-unused-expressions': 'off',
+        '@typescript-eslint/no-unused-expressions': [
+          'error',
+          {
+            allowShortCircuit: true,
+            allowTernary: true,
+            allowTaggedTemplates: true,
+          },
+        ],
       },
     }
   )
