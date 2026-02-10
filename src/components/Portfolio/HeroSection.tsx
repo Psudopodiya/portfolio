@@ -1,11 +1,11 @@
+import { TypewriterText } from '@/components/animations';
 import { Theme } from '@/types/types';
+import { motion } from 'framer-motion';
 import { Download } from 'lucide-react';
 import { CiLinkedin } from 'react-icons/ci';
 import { FiGithub } from 'react-icons/fi';
 import { MdOutlineEmail } from 'react-icons/md';
 import { SiLeetcode } from 'react-icons/si';
-import { motion } from 'framer-motion';
-import { TypewriterText } from '@/components/animations';
 
 interface HeroSectionProps {
   theme: Theme;
@@ -51,7 +51,7 @@ function HeroSection({ theme }: HeroSectionProps) {
       id="hero"
       className="container mx-auto px-4 flex flex-col items-center gap-8 text-center py-20"
     >
-      <motion.h1 
+      <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -68,15 +68,15 @@ function HeroSection({ theme }: HeroSectionProps) {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="text-xl sm:text-2xl md:text-3xl font-medium h-10"
       >
-        <TypewriterText 
-          texts={roles} 
+        <TypewriterText
+          texts={roles}
           className={theme.text_secondary}
           typingSpeed={80}
           deletingSpeed={40}
         />
       </motion.div>
 
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
@@ -86,17 +86,16 @@ function HeroSection({ theme }: HeroSectionProps) {
         into Digital Solutions
       </motion.p>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
         className="inline-flex flex-wrap items-center gap-5 justify-center relative"
       >
         {links.map((link, index) => (
           <motion.div
             key={index}
             whileHover={{ y: -4 }}
-            className="border hover:border-transparent px-3 py-1 rounded-2xl relative group transition-all ease-in-out duration-300"
+            className="border hover:border-transparent px-3 py-1 rounded-2xl relative group transition-all ease-in-out"
             onClick={() => window.open(link.href, '_blank')}
             style={{ cursor: 'pointer' }}
           >
@@ -104,7 +103,7 @@ function HeroSection({ theme }: HeroSectionProps) {
               {link.icon} {link.label}
             </span>
             <span
-              className={`absolute inset-0 ${link.bgColor} transition-all duration-300 ease-in-out scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 rounded-2xl`}
+              className={`absolute inset-0 ${link.bgColor} transition-all ease-in-out scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 rounded-2xl`}
             ></span>
           </motion.div>
         ))}
@@ -114,10 +113,8 @@ function HeroSection({ theme }: HeroSectionProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
         onClick={() => window.open('/resume.pdf', '_blank')}
-        className={`rounded glow-box inline-flex items-center gap-2 transition duration-300 ease-in-out py-2 px-4 shadow ${theme.hover_background_base}`}
+        className={`rounded glow-box inline-flex items-center gap-2 transition duration-300 ease-in-out py-2 px-4 shadow ${theme.background_contrast} ${theme.text_contrast}`}
       >
         <Download className="w-4 h-4" />
         Download Resume

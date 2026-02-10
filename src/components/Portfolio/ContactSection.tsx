@@ -14,6 +14,24 @@ function ContactSection({ theme }: ContactSectionProps) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const parseSendEmailResponse = async (response: Response) => {
+    const contentType = response.headers.get('content-type') ?? '';
+    if (contentType.includes('application/json')) {
+      return response.json() as Promise<{
+        success?: boolean;
+        message?: string;
+        error?: string;
+      }>;
+    }
+
+    const text = await response.text();
+    return { message: text } as {
+      success?: boolean;
+      message?: string;
+      error?: string;
+    };
+  };
+
   const sendEmail = async (payload: {
     name: string;
     email: string;
@@ -27,10 +45,15 @@ function ContactSection({ theme }: ContactSectionProps) {
       body: JSON.stringify(payload),
     });
 
-    const result: { success?: boolean; message?: string; error?: string } =
-      await response.json();
+    const result = await parseSendEmailResponse(response);
     if (!response.ok || !result.success) {
-      throw new Error(result.error || result.message || 'Failed to send message');
+      const errorMessage =
+        result.error ||
+        result.message ||
+        (response.status === 404
+          ? 'Email API route not found. Run a backend that serves /api/sendEmail in development.'
+          : 'Failed to send message');
+      throw new Error(errorMessage);
     }
   };
 
@@ -78,10 +101,13 @@ function ContactSection({ theme }: ContactSectionProps) {
       form.reset();
     } catch (error) {
       console.error('Contact form send failed:', error);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Unable to send your message right now. Please try again later.';
       toast({
         title: 'Message Failed',
-        description:
-          'Unable to send your message right now. Please try again later.',
+        description: errorMessage,
         variant: 'destructive',
       });
     } finally {
@@ -133,7 +159,7 @@ function ContactSection({ theme }: ContactSectionProps) {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className={`w-fit rounded-xl gap-2 hover:-translate-y-1 ease-in-out duration-200 transition-all py-3 ${theme.background_contrast} ${theme.text_contrast} ${theme.hover_background_base}`}
+              className={`w-fit rounded-xl gap-2 hover:-translate-y-1 ease-in-out duration-200 transition-all py-3 ${theme.background_contrast} ${theme.text_contrast}`}
             >
               <Send className="w-4 h-4" />
               {isSubmitting ? 'Sending...' : 'Send Message'}
