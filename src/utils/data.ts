@@ -1,0 +1,56 @@
+import { Project, Skill } from '@/types/types';
+import project1Image from '@/assets/projects/project_1.png';
+import project2Image from '@/assets/projects/project_2.png';
+
+export const skills: Skill[] = [
+  {
+    title: 'Frontend',
+    tech: ['JavaScript', 'TypeScript', 'React.js', 'Tailwind', 'CSS'],
+    data: "I build dynamic, responsive UI's using JS and TS, with React for reusable components and Tailwind for fast, modern designs. Focused on seamless user experiences and performance.",
+  },
+  {
+    title: 'Backend',
+    tech: ['Python', 'Django', 'Flask', 'Fast Api', 'SQL', 'NoSQL'],
+    data: 'I develop scalable server-side apps with Python, using Django and Flask for secure APIs. Experienced with both SQL and NoSQL databases to design efficient data models.',
+  },
+  {
+    title: 'DevOps',
+    tech: ['AWS', 'Docker', 'Terraform', 'Jenkins', 'Git'],
+    data: 'I automate cloud infrastructure with AWS and Terraform, containerize apps with Docker, and set up CI/CD pipelines with Jenkins. Proficient in Git for version control',
+  },
+];
+
+export const projects: Project[] = [
+  {
+    name: 'Retro Chat',
+    tech: [
+      'React',
+      'Django',
+      'Postgres',
+      'Docker',
+      'Tailwind',
+      'JavaScript',
+      'Django Channels',
+    ],
+    info: 'This project is a real-time chat application featuring a Django Channels and PostgreSQL backend alongside a modern React, Tailwind CSS, ShadCN, TypeScript, and Vite frontend. It supports one-on-one and group chats, real-time updates, user notifications, and admin tools for managing users and chat rooms. The responsive frontend delivers a clean design with fast performance, enabling seamless and engaging communication.',
+    link: 'https://github.com/Psudopodiya/Retro-Chat',
+    repository_link: 'https://github.com/Psudopodiya/Retro-Chat',
+    image: project1Image,
+  },
+  {
+    name: '3js Landing Page',
+    tech: [
+      'React',
+      'Tailwind',
+      'JavaScript',
+      '3js',
+      'react-three',
+      'Zustand',
+      'TypeScript',
+    ],
+    info: 'This project is a demonstration for a 3Js website that functions, and can be used as a landing page for other websites, serving as an interactive way for users to use them an guide around. Furthermore can be used to create interactive guides and walkthrough for learning websites ',
+    link: 'https://landing-page-gamma-liard-58.vercel.app/',
+    repository_link: 'https://github.com/Psudopodiya/3js-COE',
+    image: project2Image,
+  },
+];
